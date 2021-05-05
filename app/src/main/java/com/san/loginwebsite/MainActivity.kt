@@ -1,5 +1,6 @@
 package com.san.loginwebsite
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val loginVerification = LoginVerification()
-
 
 
     private lateinit var email: EditText
@@ -34,11 +34,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (loginVerification.verify(email.text.toString(), password.text.toString())) {
             Toast.makeText(this, "Login is Successful", Toast.LENGTH_SHORT).show()
             Log.d("Password Successful", password.text.toString())
+
+            val intent = Intent(this, SecondActivity::class.java)
+            val b = Bundle()
+            b.putString("email", email.text.toString())
+            intent.putExtras(b)
+
+            startActivity(intent)
         } else {
             Toast.makeText(this, "Login Credential not matching", Toast.LENGTH_SHORT).show()
             Log.d("Password Un-successful", password.text.toString())
         }
     }
+
+
 }
+
 
 
